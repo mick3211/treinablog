@@ -6,16 +6,12 @@ import {
     PostTitle,
 } from './PostBody.styled';
 
-interface PostProps {
-    post: BlogPost;
-}
-
-const PostBody: React.FC<PostProps> = ({ post }) => {
+const PostBody: React.FC<{ post: BlogPost }> = ({ post }) => {
     return (
         <PostContainer>
             <PostTitle>{post.title}</PostTitle>
             <PostPicture src={post.picture} alt={post.title} />
-            <PostContent>{post.content}</PostContent>
+            <PostContent dangerouslySetInnerHTML={{ __html: post.content }} />
         </PostContainer>
     );
 };

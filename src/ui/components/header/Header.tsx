@@ -1,16 +1,24 @@
+import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { Button } from '../Button/Button.styled';
 import { HeaderStyled } from './Header.styled';
 
 const Header: React.FC = () => {
+    const { data: session } = useSession();
+
     return (
         <>
-            <Link href="/">
-                <a>
-                    <HeaderStyled>
+            <HeaderStyled>
+                <Link href="/">
+                    <a>
                         Treina<span>blog</span>
-                    </HeaderStyled>
-                </a>
-            </Link>
+                    </a>
+                </Link>
+
+                <Button onClick={() => (!session ? signIn() : signOut())}>
+                    {!session ? 'Login' : 'Logout'}
+                </Button>
+            </HeaderStyled>
         </>
     );
 };
